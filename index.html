@@ -1,280 +1,207 @@
-
 <!doctype html>
-<html lang="tl">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123b5d">
-
-<title>Money Tracker</title>
-
+<title>Money Tracker Complete</title>
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" href="./icon-192.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Money Tracker">
-
 <style>
-:root{--navy:#123b5d;--blue:#176b87;--bg:#f3f6f9;--card:#fff;--ink:#17212b;--muted:#667788;--green:#13845b;--red:#c0392b}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);font:16px system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink)}
-header{background:linear-gradient(135deg,var(--navy),var(--blue));color:white;padding:22px 18px 26px;border-radius:0 0 22px 22px}
-header h1{margin:0;font-size:24px}
-header p{margin:6px 0 0;opacity:.85}
-main{max-width:720px;margin:auto;padding:14px}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:-4px}
-.card{background:var(--card);padding:15px;border-radius:16px;box-shadow:0 3px 12px #16324b0b}
-.metric{font-size:20px;font-weight:750;margin-top:6px;overflow-wrap:anywhere}
-.label{font-size:12px;color:var(--muted)}
-nav{display:flex;gap:7px;overflow:auto;padding:12px 0;position:sticky;top:0;background:var(--bg);z-index:2}
-nav button{white-space:nowrap;border:0;border-radius:20px;padding:9px 13px;background:#e2eaf0;color:var(--navy);font-weight:650}
-nav button.active{background:var(--navy);color:white}
-section{background:white;border-radius:16px;padding:16px;margin:10px 0;box-shadow:0 3px 12px #16324b0b}
-h2{font-size:18px;margin:0 0 12px}
-form{display:grid;gap:10px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #d5dee6;border-radius:10px;font:inherit;background:white}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-button.primary{border:0;border-radius:11px;background:var(--blue);color:white;padding:13px;font-weight:700;font-size:16px}
-button.secondary{border:1px solid #ccd8e1;border-radius:10px;background:white;padding:10px;color:var(--navy)}
-.entry{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #edf1f4}
-.entry:last-child{border:0}
-.entry small{display:block;color:var(--muted);margin-top:3px}
-.amount{font-weight:750;white-space:nowrap}
-.plus{color:var(--green)}
-.minus{color:var(--red)}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.empty{color:var(--muted);text-align:center;padding:18px}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
-@media(min-width:560px){.cards{grid-template-columns:repeat(4,1fr)}}
+:root{--navy:#123b5d;--blue:#176b87;--bg:#f3f6f9;--card:#fff;--ink:#17212b;--muted:#667788;--green:#13845b;--red:#c0392b;--line:#e5ebf0;--gold:#b7791f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink)}
+header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:20px 17px 22px;border-radius:0 0 22px 22px}
+header h1{margin:0;font-size:23px}header p{margin:5px 0 0;opacity:.86;font-size:13px}
+main{max-width:850px;margin:auto;padding:12px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:8px 0}
+.card{background:var(--card);padding:13px;border-radius:15px;box-shadow:0 3px 12px #16324b0b;min-width:0}
+.metric{font-size:19px;font-weight:800;margin-top:5px;overflow-wrap:anywhere}.label{font-size:12px;color:var(--muted)}
+nav{display:flex;gap:7px;overflow:auto;padding:10px 0;position:sticky;top:0;background:var(--bg);z-index:4;scrollbar-width:thin}
+nav button,.chip{white-space:nowrap;border:0;border-radius:20px;padding:9px 12px;background:#e2eaf0;color:var(--navy);font-weight:700}
+nav button.active{background:var(--navy);color:#fff}
+section.panel{background:#fff;border-radius:16px;padding:15px;margin:10px 0;box-shadow:0 3px 12px #16324b0b}
+h2{font-size:18px;margin:0 0 12px}h3{font-size:15px;margin:12px 0 8px}
+form{display:grid;gap:9px}input,select,textarea{width:100%;padding:11px;border:1px solid #d5dee6;border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+textarea{min-height:70px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+button.primary{border:0;border-radius:11px;background:var(--blue);color:#fff;padding:12px;font-weight:750;font-size:15px}
+button.secondary{border:1px solid #ccd8e1;border-radius:10px;background:#fff;padding:8px 10px;color:var(--navy);font-weight:650}
+button.danger{border:1px solid #f0c9c5;color:var(--red);background:#fff;border-radius:9px;padding:7px 9px}
+button:disabled{opacity:.5}.entry{display:flex;justify-content:space-between;gap:9px;padding:11px 0;border-bottom:1px solid var(--line)}
+.entry:last-child{border:0}.entry small{display:block;color:var(--muted);margin-top:3px;line-height:1.45}
+.amount{font-weight:800;white-space:nowrap;text-align:right}.plus{color:var(--green)}.minus{color:var(--red)}
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.empty{color:var(--muted);text-align:center;padding:18px}
+.badge{display:inline-block;padding:3px 8px;border-radius:20px;background:#edf2f6;color:#425466;font-size:11px;font-weight:700}
+.badge.good{background:#e5f5ed;color:#14734e}.badge.bad{background:#fdecea;color:#a52a20}.badge.warn{background:#fff4dc;color:#8a5a08}
+.hidden{display:none!important}.muted{color:var(--muted)}.two{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+hr{border:0;border-top:1px solid var(--line);margin:13px 0}
+.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--muted)}
+.notice{background:#fff7e6;border:1px solid #f2d79b;border-radius:11px;padding:10px;font-size:13px;color:#76500b}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
+#lockScreen{position:fixed;inset:0;background:var(--bg);z-index:20;display:none;align-items:center;justify-content:center;padding:20px}
+.lockbox{background:#fff;padding:24px;border-radius:18px;width:min(100%,360px);box-shadow:0 8px 30px #123b5d22}
+@media(min-width:600px){.cards{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
-
 <body>
-<header>
-<h1>💰 Money Tracker</h1>
-<p>Farm • Computer Shop • Utang • Bahay • Iba pa</p>
-</header>
-
+<header><h1>💰 Money Tracker</h1><p>Farm • Computer Shop • Debt • Bills • Budget • Savings</p></header>
 <main>
 <div class="cards">
-<div class="card"><div class="label">Cash Flow (Net)</div><div class="metric" id="net">₱0.00</div></div>
-<div class="card"><div class="label">Income</div><div class="metric plus" id="income">₱0.00</div></div>
-<div class="card"><div class="label">Expenses</div><div class="metric minus" id="expense">₱0.00</div></div>
-<div class="card"><div class="label">Utang sa akin</div><div class="metric" id="receivable">₱0.00</div></div>
+ <div class="card"><div class="label">Net Cash Flow</div><div class="metric" id="net">₱0.00</div></div>
+ <div class="card"><div class="label">Total Income</div><div class="metric plus" id="income">₱0.00</div></div>
+ <div class="card"><div class="label">Total Expenses</div><div class="metric minus" id="expense">₱0.00</div></div>
+ <div class="card"><div class="label">Cash & Account Balance</div><div class="metric" id="cash">₱0.00</div></div>
+ <div class="card"><div class="label">My Debt</div><div class="metric minus" id="debt">₱0.00</div></div>
+ <div class="card"><div class="label">Owed to Me</div><div class="metric plus" id="receivable">₱0.00</div></div>
+ <div class="card"><div class="label">Unpaid Bills</div><div class="metric minus" id="unpaid">₱0.00</div></div>
+ <div class="card"><div class="label">Savings Goal Progress</div><div class="metric" id="savingProgress">0%</div></div>
 </div>
-
 <nav id="tabs">
-<button class="active" data-cat="All">Lahat</button>
-<button data-cat="Farm">Farm</button>
-<button data-cat="Computer Shop">Computer Shop</button>
-<button data-cat="Utang Ko">Utang Ko</button>
-<button data-cat="Utang sa Akin">Utang sa Akin</button>
-<button data-cat="Bahay">Bahay</button>
-<button data-cat="Other">Other</button>
+<button class="active" data-page="home">Overview</button><button data-page="transactions">Transactions</button><button data-page="bills">Bills</button><button data-page="debts">Debts</button><button data-page="business">Businesses</button><button data-page="accounts">Accounts</button><button data-page="budgets">Budget & Savings</button><button data-page="reports">Reports</button><button data-page="settings">Settings</button>
 </nav>
 
-<section>
-<h2 id="formTitle">➕ Mag-record</h2>
+<div id="page-home" class="page">
+<section class="panel"><h2>📊 Monthly Summary</h2><div class="row"><div><label class="label">Select Month</label><input type="month" id="homeMonth"></div><div><label class="label">Net This Month</label><div class="metric" id="monthNet">₱0.00</div></div></div><div class="two" style="margin-top:12px"><div><div class="label">Income This Month</div><b class="plus" id="monthIncome">₱0.00</b></div><div><div class="label">Expenses This Month</div><b class="minus" id="monthExpense">₱0.00</b></div></div></section>
+<section class="panel"><h2>⏰ Upcoming & Overdue Bills</h2><div id="homeBills"></div></section>
+<section class="panel"><h2>🧾 Recent Transactions</h2><div id="recent"></div></section>
+</div>
+
+<div id="page-transactions" class="page hidden">
+<section class="panel"><h2 id="txTitle">➕ Add Income / Expense</h2>
 <form id="entryForm">
-<div class="row">
-<input type="date" id="date" required>
-<select id="category">
-<option>Farm</option>
-<option>Computer Shop</option>
-<option>Utang Ko</option>
-<option>Utang sa Akin</option>
-<option>Bahay</option>
-<option>Other</option>
-</select>
-</div>
-<div class="row">
-<select id="kind">
-<option value="expense">Expense / Labas</option>
-<option value="income">Income / Pasok</option>
-<option value="debt">Bagong utang ko</option>
-<option value="receivable">Bagong utang sa akin</option>
-<option value="payment">Bayad sa utang ko</option>
-<option value="collection">Singil / collection</option>
-</select>
-<input id="amount" type="number" min="0.01" step="0.01" placeholder="Amount (₱)" required>
-</div>
-<input id="description" placeholder="Description / kanino / item" required>
-<button class="primary" type="submit">I-save ang record</button>
-</form>
-</section>
+<input type="hidden" id="editId">
+<div class="row"><div><label class="label">Date</label><input type="date" id="date" required></div><div><label class="label">Category</label><select id="category"><option value="Farm">Farm</option><option value="Computer Shop">Computer Shop</option><option value="Utang Ko">My Debt</option><option value="Utang sa Akin">Owed to Me</option><option value="Bahay">Home</option><option>Bills</option><option>Savings</option><option value="Other">Other</option></select></div></div>
+<div class="row"><select id="kind"><option value="expense">Expense / Out</option><option value="income">Income / In</option><option value="debt">New Debt</option><option value="receivable">New Receivable</option><option value="payment">Debt Payment</option><option value="collection">Collection</option><option value="transfer">Transfer between accounts</option></select><input id="amount" type="number" min="0.01" step="0.01" placeholder="Amount (₱)" required></div>
+<input id="description" placeholder="Description / person / item" required>
+<div class="row"><select id="account"><option>Cash</option><option>Bank</option><option>GCash</option><option>Maya</option><option>Other Account</option></select><select id="businessType"><option>Personal</option><option value="Farm">Farm</option><option value="Computer Shop">Computer Shop</option></select></div>
+<label class="label">Receipt / Image (optional)</label><input type="file" id="receipt" accept="image/*">
+<button class="primary" type="submit">Save Transaction</button><button class="secondary hidden" type="button" id="cancelEdit">Cancel</button>
+</form></section>
+<section class="panel"><h2>📒 All Transactions</h2>
+<div class="row"><input id="searchTx" placeholder="Search description..."><select id="filterCat"><option value="All">All Categories</option><option value="Farm">Farm</option><option value="Computer Shop">Computer Shop</option><option value="Utang Ko">My Debt</option><option value="Utang sa Akin">Owed to Me</option><option value="Bahay">Home</option><option>Bills</option><option>Savings</option><option value="Other">Other</option></select></div>
+<div id="records"></div><div class="actions"><button class="secondary" id="exportCsv">⬇ Export CSV</button></div>
+</section></div>
 
-<section>
-<h2>📒 Records <span id="recordCount" class="label"></span></h2>
-<div id="records"></div>
-<div class="actions">
-<button class="secondary" id="export">⬇ Export CSV</button>
-<button class="secondary" id="backup">Backup JSON</button>
-<label class="secondary" style="cursor:pointer">Restore JSON
-<input type="file" id="restore" accept=".json" hidden>
-</label>
+<div id="page-bills" class="page hidden">
+<section class="panel"><h2>🧾 Bills Management</h2><div class="cards"><div class="card"><div class="label">Unpaid</div><div class="metric minus" id="billUnpaid">₱0.00</div></div><div class="card"><div class="label">Overdue</div><div class="metric minus" id="billOverdue">₱0.00</div></div><div class="card"><div class="label">Paid This Month</div><div class="metric plus" id="billPaid">₱0.00</div></div></div>
+<h3>Add / Edit Bill</h3><form id="billForm"><input type="hidden" id="billEdit"><input id="billName" placeholder="Bill name (e.g. Electricity)" required><div class="row"><select id="billCategory"><option>Electricity</option><option>Water</option><option>Internet / Wi-Fi</option><option>Mobile Phone</option><option>Rent</option><option>Insurance</option><option>Tuition</option><option>Subscription</option><option value="Other">Other</option></select><input id="billAmount" type="number" min="0.01" step=".01" placeholder="Amount (₱)" required></div><div class="row"><input id="billDue" type="date" required><select id="billRepeat"><option value="none">One-time</option><option value="monthly">Repeat monthly</option><option value="yearly">Repeat yearly</option></select></div><input id="billNote" placeholder="Notes / account number (optional)"><button class="primary">Save Bill</button></form><div id="billList"></div></section>
 </div>
-</section>
 
-<section>
-<h2>📌 Utang Summary</h2>
-<div class="row">
-<div>
-<div class="label">Utang ko (remaining)</div>
-<div class="metric minus" id="debt">₱0.00</div>
+<div id="page-debts" class="page hidden">
+<section class="panel"><h2>🤝 Debt Management</h2><div class="two"><div><div class="label">My debt</div><div class="metric minus" id="debtTotal">₱0.00</div></div><div><div class="label">Owed to Me</div><div class="metric plus" id="owedTotal">₱0.00</div></div></div>
+<h3>Add a Debt</h3><form id="debtForm"><input type="hidden" id="debtEdit"><div class="row"><select id="debtType"><option value="iowe">My debt</option><option value="owed">Receivable</option></select><input id="debtPerson" placeholder="Name / Person" required></div><div class="row"><input id="debtAmount" type="number" min=".01" step=".01" placeholder="Amount (₱)" required><input id="debtDue" type="date"></div><input id="debtNote" placeholder="Reason / notes"><button class="primary">Save Debt</button></form><div id="debtList"></div></section>
 </div>
-<div>
-<div class="label">Utang sa akin (remaining)</div>
-<div class="metric plus" id="owed">₱0.00</div>
-</div>
-</section>
 
-<footer>Local app • Naka-save sa browser ng device na ito. Mag-backup regularly.</footer>
+<div id="page-business" class="page hidden">
+<section class="panel"><h2>🌾 Farm & 🖥️ Computer Shop</h2><p class="muted">Use the Transactions form and select Farm or Computer Shop as the category or business to record income and expenses.</p><div class="row"><div class="card"><div class="label">Farm Net Profit</div><div class="metric" id="farmNet">₱0.00</div></div><div class="card"><div class="label">Computer Shop Net Profit</div><div class="metric" id="shopNet">₱0.00</div></div></div><h3>Common Farm Expense Types</h3><p class="muted">Feed • Fertilizer • Labor • Medicine • Seeds • Supplies • Fuel • Harvest / Sales</p><h3>Common Shop Income & Expense Types</h3><p class="muted">Printing • Photocopy • Internet • Electricity • Supplies • Repair • Computer Services</p><div id="businessSummary"></div></section>
+</div>
+
+<div id="page-accounts" class="page hidden">
+<section class="panel"><h2>🏦 Accounts & Wallets</h2><p class="muted">Enter the opening balance for each account. Transactions assigned to an account will be added to or deducted from its balance.</p><form id="accountForm"><input type="hidden" id="accountEdit"><div class="row"><input id="accountName" placeholder="Account name (Cash, Bank, E-wallet)" required><input id="accountOpening" type="number" step=".01" placeholder="Opening Balance (₱)" required></div><button class="primary">Save Account</button></form><div id="accountList"></div></section>
+</div>
+
+<div id="page-budgets" class="page hidden">
+<section class="panel"><h2>🎯 Monthly Budget</h2><form id="budgetForm"><div class="row"><select id="budgetCategory"><option value="Farm">Farm</option><option value="Computer Shop">Computer Shop</option><option>Home</option><option>Bills</option><option value="Other">Other</option></select><input id="budgetAmount" type="number" min="1" step=".01" placeholder="Budget ₱" required></div><button class="primary">Set / Update Budget</button></form><div id="budgetList"></div></section>
+<section class="panel"><h2>💰 Savings Goals</h2><form id="savingForm"><input id="savingName" placeholder="Goal name (e.g. Emergency Fund)" required><div class="row"><input id="savingTarget" type="number" min="1" step=".01" placeholder="Target Amount (₱)" required><input id="savingCurrent" type="number" min="0" step=".01" placeholder="Current Savings (₱)" required></div><button class="primary">Save Goal</button></form><div id="savingList"></div></section>
+</div>
+
+<div id="page-reports" class="page hidden">
+<section class="panel"><h2>📈 Financial Reports</h2><div class="row"><input type="date" id="reportFrom"><input type="date" id="reportTo"></div><button class="secondary" id="runReport">Generate Report</button><div id="reportResult"></div><div class="actions"><button class="secondary" id="printReport">Print Report</button></div></section>
+</div>
+
+<div id="page-settings" class="page hidden">
+<section class="panel"><h2>🔐 PIN Lock</h2><p class="muted">A basic app lock to prevent casual access. This is not a substitute for secure encryption.</p><form id="pinForm"><input id="newPin" inputmode="numeric" pattern="[0-9]{4,8}" minlength="4" maxlength="8" placeholder="New PIN (4–8 digits)"><button class="primary">Set PIN</button></form><button class="secondary" id="removePin">Remove PIN</button></section>
+<section class="panel"><h2>💾 Backup & Restore</h2><div class="notice">Back up your data regularly. Your data is stored in this browser and on this device; it may not automatically sync to another phone.</div><div class="actions"><button class="secondary" id="backup">Download Full Backup (JSON)</button><label class="secondary">Restore Backup<input type="file" id="restore" accept=".json,application/json" hidden></label><button class="secondary" id="exportAll">Export Transactions (CSV)</button></div><hr><button class="danger" id="clearAll">Delete ALL App Data</button></section>
+</div>
+<footer>Money Tracker Complete • Offline-ready PWA • Local device storage</footer>
 </main>
 
-<script>
-const $=id=>document.getElementById(id);
-const peso=n=>'₱'+Number(n||0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
-
-let data=JSON.parse(localStorage.getItem('moneyTrackerData')||'[]'),filter='All';
-$('date').value=new Date().toISOString().slice(0,10);
-
-function save(){
-localStorage.setItem('moneyTrackerData',JSON.stringify(data));
-render();
-}
-
-function render(){
-const filtered=data.filter(x=>filter==='All'||x.category===filter).slice().reverse();
-
-$('records').innerHTML=filtered.length?filtered.map(x=>`
-<div class="entry">
-<div><b>${esc(x.description)}</b><small>${x.date} • ${esc(x.category)} • ${esc(x.kindLabel)}</small></div>
-<div class="amount ${x.flow>=0?'plus':'minus'}">
-${x.flow>=0?'+':'−'}${peso(Math.abs(x.flow))}
-<br><button class="secondary" onclick="del('${x.id}')">Delete</button>
-</div></div>`).join(''):'<div class="empty">Wala pang record. Mag-add sa form sa taas.</div>';
-
-$('recordCount').textContent='('+filtered.length+')';
-
-const income=data.reduce((s,x)=>s+(x.flow>0?x.flow:0),0);
-const expense=data.reduce((s,x)=>s+(x.flow<0?-x.flow:0),0);
-
-$('income').textContent=peso(income);
-$('expense').textContent=peso(expense);
-$('net').textContent=peso(income-expense);
-
-const debt=data.reduce((s,x)=>s+(x.debtDelta||0),0);
-const owed=data.reduce((s,x)=>s+(x.owedDelta||0),0);
-
-$('debt').textContent=peso(debt);
-$('owed').textContent=peso(owed);
-$('receivable').textContent=peso(owed);
-}
-
-function esc(s){
-return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-window.del=id=>{
-if(confirm('Delete record?')){
-data=data.filter(x=>x.id!==id);
-save();
-}
-};
-
-$('tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{
-filter=b.dataset.cat;
-$('tabs').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));
-render();
-});
-
-$('entryForm').onsubmit=e=>{
-e.preventDefault();
-
-const cat=$('category').value;
-const kind=$('kind').value;
-const amt=Number($('amount').value);
-const desc=$('description').value.trim();
-
-if(!Number.isFinite(amt)||amt<=0||!desc)return;
-
-let flow=0,debtDelta=0,owedDelta=0,label='';
-
-if(kind==='income'){flow=amt;label='Income'}
-if(kind==='expense'){flow=-amt;label='Expense'}
-if(kind==='debt'){debtDelta=amt;label='Bagong utang'}
-if(kind==='receivable'){owedDelta=amt;label='Utang sa akin'}
-if(kind==='payment'){debtDelta=-amt;flow=-amt;label='Bayad sa utang'}
-if(kind==='collection'){owedDelta=-amt;flow=amt;label='Collection'}
-
-data.push({
-id:Date.now().toString(),
-date:$('date').value,
-category:cat,
-kind,
-kindLabel:label,
-amount:amt,
-description:desc,
-flow,
-debtDelta,
-owedDelta
-});
-
-$('amount').value='';
-$('description').value='';
-save();
-};
-
-$('export').onclick=()=>{
-const rows=[['Date','Category','Type','Description','Amount','Cash Flow'],
-...data.map(x=>[x.date,x.category,x.kindLabel,x.description,x.amount,x.flow])];
-
-const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
-const a=document.createElement('a');
-a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
-a.download='money-tracker.csv';
-a.click();
-URL.revokeObjectURL(a.href);
-};
-
-$('backup').onclick=()=>{
-const a=document.createElement('a');
-a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
-a.download='money-tracker-backup.json';
-a.click();
-URL.revokeObjectURL(a.href);
-};
-
-$('restore').onchange=e=>{
-const f=e.target.files[0];
-if(!f)return;
-const r=new FileReader();
-r.onload=()=>{
-try{
-const x=JSON.parse(r.result);
-if(Array.isArray(x)&&confirm('Replace current records with backup?')){
-data=x;
-save();
-}
-}catch{
-alert('Invalid backup file');
-}
-};
-r.readAsText(f);
-};
-
-render();
-</script>
+<div id="lockScreen"><div class="lockbox"><h2>🔒 Money Tracker</h2><p class="muted">Enter your PIN to continue.</p><input id="unlockPin" type="password" inputmode="numeric" placeholder="PIN"><button class="primary" id="unlock" style="width:100%;margin-top:10px">Unlock</button><p id="pinError" class="minus"></p></div></div>
 
 <script>
-if('serviceWorker' in navigator){
-window.addEventListener('load',()=>{
-navigator.serviceWorker.register('./service-worker.js')
-.then(reg=>console.log('Service Worker ready:',reg.scope))
-.catch(err=>console.error('Service Worker error:',err));
-});
+const $=id=>document.getElementById(id), peso=n=>'₱'+Number(n||0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
+const read=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+let data=read('moneyTrackerData',[]), bills=read('moneyTrackerBills',[]), debts=read('moneyTrackerDebts',[]), accounts=read('moneyTrackerAccounts',[{id:'cash',name:'Cash',opening:0}]), budgets=read('moneyTrackerBudgets',[]), goals=read('moneyTrackerGoals',[]), pin=localStorage.getItem('moneyTrackerPin')||'';
+let currentPage='home';
+const today=()=>new Date().toLocaleDateString('en-CA');
+$('date').value=today();$('homeMonth').value=today().slice(0,7);$('reportFrom').value=today().slice(0,8)+'01';$('reportTo').value=today();
+function persist(){localStorage.setItem('moneyTrackerData',JSON.stringify(data));localStorage.setItem('moneyTrackerBills',JSON.stringify(bills));localStorage.setItem('moneyTrackerDebts',JSON.stringify(debts));localStorage.setItem('moneyTrackerAccounts',JSON.stringify(accounts));localStorage.setItem('moneyTrackerBudgets',JSON.stringify(budgets));localStorage.setItem('moneyTrackerGoals',JSON.stringify(goals));renderAll()}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function sum(a,fn){return a.reduce((s,x)=>s+fn(x),0)}
+function monthOf(d){return String(d||'').slice(0,7)}
+function showPage(p){currentPage=p;document.querySelectorAll('.page').forEach(x=>x.classList.toggle('hidden',x.id!=='page-'+p));document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));}
+$('tabs').addEventListener('click',e=>{let b=e.target.closest('button[data-page]');if(b)showPage(b.dataset.page)});
+function txTotals(list){let inc=sum(list,x=>x.flow>0?x.flow:0),out=sum(list,x=>x.flow<0?-x.flow:0);return {inc,out,net:inc-out}}
+function debtBalances(){let oldIowe=sum(data,x=>Number(x.debtDelta||0)),oldOwed=sum(data,x=>Number(x.owedDelta||0));let iowe=oldIowe+sum(debts.filter(x=>x.type==='iowe'),x=>Math.max(0,x.amount-x.paid)),owed=oldOwed+sum(debts.filter(x=>x.type==='owed'),x=>Math.max(0,x.amount-x.paid));return {iowe:Math.max(0,iowe),owed:Math.max(0,owed)}}
+function billStatus(b){if(b.status==='paid')return 'Paid';return b.due<today()?'Overdue':'Unpaid'}
+function renderDashboard(){
+let t=txTotals(data),db=debtBalances(),unpaid=sum(bills.filter(b=>b.status!=='paid'),b=>Number(b.amount));
+$('income').textContent=peso(t.inc);$('expense').textContent=peso(t.out);$('net').textContent=peso(t.net);$('debt').textContent=peso(db.iowe);$('receivable').textContent=peso(db.owed);$('unpaid').textContent=peso(unpaid);
+let accountBalance=sum(accounts,a=>Number(a.opening||0))+sum(data,x=>x.flow||0);
+$('cash').textContent=peso(accountBalance);
+let goalTarget=sum(goals,g=>g.target),goalNow=sum(goals,g=>g.current);$('savingProgress').textContent=(goalTarget?Math.min(100,goalNow/goalTarget*100):0).toFixed(0)+'%';
+let m=$('homeMonth').value||today().slice(0,7),mt=txTotals(data.filter(x=>monthOf(x.date)===m));
+$('monthIncome').textContent=peso(mt.inc);$('monthExpense').textContent=peso(mt.out);$('monthNet').textContent=peso(mt.net);
+let due=bills.filter(b=>b.status!=='paid').sort((a,b)=>a.due.localeCompare(b.due)).slice(0,5);
+$('homeBills').innerHTML=due.length?due.map(b=>`<div class="entry"><div><b>${esc(b.name)}</b><small>${esc(b.category)} • Due ${esc(b.due)}</small></div><div class="amount minus">${peso(b.amount)}<br><span class="badge ${billStatus(b)==='Overdue'?'bad':'warn'}">${billStatus(b)}</span></div></div>`).join(''):'<div class="empty">No pending bills 🎉</div>';
+let recent=data.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,5);
+$('recent').innerHTML=recent.length?recent.map(x=>txHTML(x,false)).join(''):'<div class="empty">No transactions yet.</div>';
 }
-</script>
+function displayCategory(c){return ({'Utang Ko':'My Debt','Utang sa Akin':'Owed to Me','Bahay':'Home'})[c]||c}
+function txHTML(x,buttons=true){return `<div class="entry"><div><b>${esc(x.description)}</b><small>${esc(x.date)} • ${esc(displayCategory(x.category))} • ${esc(x.kindLabel||x.kind)} • ${esc(x.businessType||'Personal')} • ${esc(x.account||'Cash')}${x.receipt?'<br>📎 Receipt attached':''}</small></div><div class="amount ${x.flow>=0?'plus':'minus'}">${x.flow>=0?'+':'−'}${peso(Math.abs(x.flow))}${buttons?`<br><button class="secondary" onclick="editTx('${x.id}')">Edit</button> <button class="danger" onclick="delTx('${x.id}')">Delete</button>`:''}</div></div>`}
+function renderTransactions(){let q=$('searchTx').value.toLowerCase(),cat=$('filterCat').value;let arr=data.filter(x=>(cat==='All'||x.category===cat)&&(`${x.description} ${x.category} ${x.kindLabel}`).toLowerCase().includes(q)).slice().reverse();$('records').innerHTML=arr.length?arr.map(x=>txHTML(x)).join(''):'<div class="empty">No matching transactions.</div>'}
+$('entryForm').onsubmit=e=>{e.preventDefault();let id=$('editId').value,kind=$('kind').value,amt=Number($('amount').value),flow=0,debtDelta=0,owedDelta=0,label='';if(kind==='income'){flow=amt;label='Income'}if(kind==='expense'){flow=-amt;label='Expense'}if(kind==='debt'){debtDelta=amt;label='New Debt'}if(kind==='receivable'){owedDelta=amt;label='Receivable'}if(kind==='payment'){debtDelta=-amt;flow=-amt;label='Debt Payment'}if(kind==='collection'){owedDelta=-amt;flow=amt;label='Collection'}if(kind==='transfer'){label='Transfer';flow=0}
+let old=data.find(x=>x.id===id),receiptFile=$('receipt').files[0];let item={id:id||Date.now().toString(),date:$('date').value,category:$('category').value,kind,kindLabel:label,amount:amt,description:$('description').value.trim(),flow,debtDelta,owedDelta,account:$('account').value,businessType:$('businessType').value,receipt:receiptFile?receiptFile.name:(old?.receipt||'')};
+if(!Number.isFinite(amt)||amt<=0||!item.description)return;if(old)data=data.map(x=>x.id===id?item:x);else data.push(item);$('entryForm').reset();$('date').value=today();$('editId').value='';$('txTitle').textContent='➕ Add Income / Expense';$('cancelEdit').classList.add('hidden');persist();};
+window.editTx=id=>{let x=data.find(y=>y.id===id);if(!x)return;showPage('transactions');$('editId').value=x.id;$('date').value=x.date;$('category').value=x.category;$('kind').value=x.kind;$('amount').value=x.amount;$('description').value=x.description;$('account').value=x.account||'Cash';$('businessType').value=x.businessType||'Personal';$('txTitle').textContent='✏️ Edit Transaction';$('cancelEdit').classList.remove('hidden');window.scrollTo(0,0)};
+window.delTx=id=>{if(confirm('Delete ang transaction na ito?')){data=data.filter(x=>x.id!==id);persist()}};
+$('cancelEdit').onclick=()=>{$('entryForm').reset();$('date').value=today();$('editId').value='';$('txTitle').textContent='➕ Add Income / Expense';$('cancelEdit').classList.add('hidden')};
+$('searchTx').oninput=renderTransactions;$('filterCat').onchange=renderTransactions;
 
+function renderBills(){let unpaid=bills.filter(b=>b.status!=='paid'),over=unpaid.filter(b=>b.due<today());$('billUnpaid').textContent=peso(sum(unpaid,b=>+b.amount));$('billOverdue').textContent=peso(sum(over,b=>+b.amount));let m=today().slice(0,7);$('billPaid').textContent=peso(sum(bills.filter(b=>b.status==='paid'&&monthOf(b.paidDate)===m),b=>+b.amount));$('billList').innerHTML=bills.length?bills.slice().sort((a,b)=>a.due.localeCompare(b.due)).map(b=>`<div class="entry"><div><b>${esc(b.name)}</b><small>${esc(b.category)} • Due ${esc(b.due)} • ${esc(b.repeat==='monthly'?'Monthly':b.repeat==='yearly'?'Yearly':'One-time')}</small><span class="badge ${billStatus(b)==='Paid'?'good':billStatus(b)==='Overdue'?'bad':'warn'}">${billStatus(b)}</span></div><div class="amount">${peso(b.amount)}<br>${b.status!=='paid'?`<button class="secondary" onclick="payBill('${b.id}')">Mark as Paid</button>`:`<button class="secondary" onclick="unpayBill('${b.id}')">Undo</button>`}<br><button class="secondary" onclick="editBill('${b.id}')">Edit</button> <button class="danger" onclick="delBill('${b.id}')">Delete</button></div></div>`).join(''):'<div class="empty">No bills yet. Add one using the form above.</div>'}
+$('billForm').onsubmit=e=>{e.preventDefault();let id=$('billEdit').value,obj={id:id||Date.now().toString(),name:$('billName').value.trim(),category:$('billCategory').value,amount:+$('billAmount').value,due:$('billDue').value,repeat:$('billRepeat').value,note:$('billNote').value,status:'unpaid',paidDate:''};let old=bills.find(b=>b.id===id);if(old)obj={...old,...obj,status:old.status,paidDate:old.paidDate};if(id)bills=bills.map(b=>b.id===id?obj:b);else bills.push(obj);$('billForm').reset();$('billEdit').value='';persist()};
+window.payBill=id=>{let b=bills.find(x=>x.id===id);if(!b)return;if(confirm('Mark this bill as paid?')){b.status='paid';b.paidDate=today();let txId='bill-'+b.id+'-'+Date.now();b.paymentTxId=txId;data.push({id:txId,date:today(),category:'Bills',kind:'expense',kindLabel:'Bill Payment',amount:Number(b.amount),description:'Bill: '+b.name,flow:-Number(b.amount),debtDelta:0,owedDelta:0,account:'Cash',businessType:'Personal'});if(b.repeat!=='none'){let d=new Date(b.due+'T12:00:00');if(b.repeat==='monthly')d.setMonth(d.getMonth()+1);else d.setFullYear(d.getFullYear()+1);bills.push({...b,id:Date.now().toString(),due:d.toLocaleDateString('en-CA'),status:'unpaid',paidDate:'',paymentTxId:''})}persist();}};
+window.unpayBill=id=>{let b=bills.find(x=>x.id===id);if(b){if(b.paymentTxId)data=data.filter(x=>x.id!==b.paymentTxId);b.status='unpaid';b.paidDate='';b.paymentTxId='';persist()}};
+window.editBill=id=>{let b=bills.find(x=>x.id===id);if(!b)return;$('billEdit').value=id;$('billName').value=b.name;$('billCategory').value=b.category;$('billAmount').value=b.amount;$('billDue').value=b.due;$('billRepeat').value=b.repeat;$('billNote').value=b.note||'';window.scrollTo(0,0)};
+window.delBill=id=>{if(confirm('Delete this bill?')){bills=bills.filter(b=>b.id!==id);persist()}};
+
+function renderDebts(){let db=debtBalances();$('debtTotal').textContent=peso(db.iowe);$('owedTotal').textContent=peso(db.owed);$('debtList').innerHTML=debts.length?debts.map(d=>{let bal=Math.max(0,d.amount-d.paid);return `<div class="entry"><div><b>${esc(d.person)}</b><small>${d.type==='iowe'?'My debt':'Receivable'} • Due ${esc(d.due||'Not set')} • ${esc(d.note||'')}</small><small>Original Amount ${peso(d.amount)} • Paid ${peso(d.paid)} • Remaining ${peso(bal)}</small></div><div class="amount">${peso(bal)}<br><button class="secondary" onclick="addDebtPayment('${d.id}')">Add Payment</button><br><button class="danger" onclick="delDebt('${d.id}')">Delete</button></div></div>`}).join(''):'<div class="empty">No debt records yet.</div>'}
+$('debtForm').onsubmit=e=>{e.preventDefault();let id=$('debtEdit').value;debts.push({id:Date.now().toString(),type:$('debtType').value,person:$('debtPerson').value.trim(),amount:+$('debtAmount').value,paid:0,due:$('debtDue').value,note:$('debtNote').value});$('debtForm').reset();persist()};
+window.addDebtPayment=id=>{let d=debts.find(x=>x.id===id);if(!d)return;let n=Number(prompt('Enter payment / collection amount:'));if(!n||n<=0)return;d.paid=Math.min(d.amount,d.paid+n);persist()};
+window.delDebt=id=>{if(confirm('Delete this debt record?')){debts=debts.filter(x=>x.id!==id);persist()}};
+
+function renderAccounts(){$('accountList').innerHTML=accounts.map(a=>{let bal=Number(a.opening||0)+sum(data.filter(x=>(x.account||'Cash')===a.name),x=>x.flow||0);return `<div class="entry"><div><b>${esc(a.name)}</b><small>Opening Balance: ${peso(a.opening)}</small></div><div class="amount">${peso(bal)}<br><button class="secondary" onclick="editAccount('${a.id}')">Edit</button> <button class="danger" onclick="delAccount('${a.id}')">Delete</button></div></div>`}).join('')}
+$('accountForm').onsubmit=e=>{e.preventDefault();let id=$('accountEdit').value,obj={id:id||Date.now().toString(),name:$('accountName').value.trim(),opening:+$('accountOpening').value};if(id)accounts=accounts.map(a=>a.id===id?obj:a);else accounts.push(obj);$('accountForm').reset();$('accountEdit').value='';persist()};
+window.editAccount=id=>{let a=accounts.find(x=>x.id===id);if(!a)return;$('accountEdit').value=id;$('accountName').value=a.name;$('accountOpening').value=a.opening};
+window.delAccount=id=>{if(accounts.length<2){alert('At least one account must remain.');return}if(confirm('Delete this account?')){accounts=accounts.filter(a=>a.id!==id);persist()}};
+
+function renderBudgets(){let m=today().slice(0,7);$('budgetList').innerHTML=budgets.length?budgets.map(b=>{let spent=sum(data.filter(x=>x.category===b.category&&monthOf(x.date)===m&&x.flow<0),x=>-x.flow),pct=b.amount?spent/b.amount*100:0;return `<div class="entry"><div><b>${esc(b.category)}</b><small>Spent ${peso(spent)} of ${peso(b.amount)} • ${pct.toFixed(0)}%</small><div style="height:8px;background:#e7edf2;border-radius:9px;margin-top:7px;overflow:hidden"><div style="height:8px;width:${Math.min(100,pct)}%;background:${pct>100?'#c0392b':'#176b87'}"></div></div></div><button class="danger" onclick="delBudget('${b.id}')">Delete</button></div>`}).join(''):'<div class="empty">No budgets set yet.</div>';$('savingList').innerHTML=goals.length?goals.map(g=>`<div class="entry"><div><b>${esc(g.name)}</b><small>${peso(g.current)} / ${peso(g.target)} (${Math.min(100,g.current/g.target*100).toFixed(0)}%)</small></div><button class="danger" onclick="delGoal('${g.id}')">Delete</button></div>`).join(''):'<div class="empty">No savings goals yet.</div>'}
+$('budgetForm').onsubmit=e=>{e.preventDefault();let cat=$('budgetCategory').value,amt=+$('budgetAmount').value,old=budgets.find(x=>x.category===cat);if(old)old.amount=amt;else budgets.push({id:Date.now().toString(),category:cat,amount:amt});$('budgetAmount').value='';persist()};
+window.delBudget=id=>{budgets=budgets.filter(x=>x.id!==id);persist()};
+$('savingForm').onsubmit=e=>{e.preventDefault();goals.push({id:Date.now().toString(),name:$('savingName').value,target:+$('savingTarget').value,current:+$('savingCurrent').value});$('savingForm').reset();persist()};
+window.delGoal=id=>{goals=goals.filter(x=>x.id!==id);persist()};
+
+function renderBusiness(){for(let [cat,id] of [['Farm','farmNet'],['Computer Shop','shopNet']]){let t=txTotals(data.filter(x=>x.category===cat||x.businessType===cat));$(id).textContent=peso(t.net)}let groups=['Farm','Computer Shop'];$('businessSummary').innerHTML=groups.map(cat=>{let t=txTotals(data.filter(x=>x.category===cat||x.businessType===cat));return `<div class="entry"><div><b>${cat}</b><small>Income ${peso(t.inc)} • Expenses ${peso(t.out)}</small></div><b>${peso(t.net)}</b></div>`}).join('')}
+function runReport(){let a=$('reportFrom').value,b=$('reportTo').value,arr=data.filter(x=>x.date>=a&&x.date<=b),t=txTotals(arr);let cats=[...new Set(arr.map(x=>x.category))];$('reportResult').innerHTML=`<hr><h3>Report: ${esc(a)} hanggang ${esc(b)}</h3><div class="two"><div>Income<br><b class="plus">${peso(t.inc)}</b></div><div>Expenses<br><b class="minus">${peso(t.out)}</b></div></div><h3>Net: ${peso(t.net)}</h3><div class="tablewrap"><table><tr><th>Category</th><th>Income</th><th>Expense</th><th>Net</th></tr>${cats.map(c=>{let z=txTotals(arr.filter(x=>x.category===c));return `<tr><td>${esc(c)}</td><td>${peso(z.inc)}</td><td>${peso(z.out)}</td><td>${peso(z.net)}</td></tr>`}).join('')}</table></div>`}
+$('runReport').onclick=runReport;$('printReport').onclick=()=>window.print();
+
+function download(name,content,type){let blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function fullBackup(){return {version:2,transactions:data,bills,debts,accounts,budgets,goals,exportedAt:new Date().toISOString()}}
+$('backup').onclick=()=>download('money-tracker-full-backup.json',JSON.stringify(fullBackup(),null,2),'application/json');
+$('restore').onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!confirm('Restore this backup? It will replace the current app data.'))return;if(Array.isArray(x)){data=x}else{data=x.transactions||[];bills=x.bills||[];debts=x.debts||[];accounts=x.accounts||accounts;budgets=x.budgets||[];goals=x.goals||[]}persist();alert('Backup restored successfully.')}catch{alert('This backup file is invalid.')}e.target.value=''};r.readAsText(f)};
+function exportCSV(){let rows=[['Date','Category','Type','Description','Amount','Cash Flow','Account','Business'],...data.map(x=>[x.date,x.category,x.kindLabel,x.description,x.amount,x.flow,x.account,x.businessType])];let csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n');download('money-tracker-transactions.csv','\ufeff'+csv,'text/csv;charset=utf-8')}
+$('exportCsv').onclick=exportCSV;$('exportAll').onclick=exportCSV;
+
+$('pinForm').onsubmit=e=>{e.preventDefault();let p=$('newPin').value;if(!/^\d{4,8}$/.test(p)){alert('Use a PIN with 4 to 8 digits.');return}pin=p;localStorage.setItem('moneyTrackerPin',pin);$('newPin').value='';alert('PIN saved.')};
+$('removePin').onclick=()=>{if(confirm('Remove PIN lock?')){pin='';localStorage.removeItem('moneyTrackerPin');alert('PIN removed.')}};
+$('unlock').onclick=()=>{if($('unlockPin').value===pin){$('lockScreen').style.display='none';$('pinError').textContent=''}else $('pinError').textContent='Incorrect PIN.'};
+$('clearAll').onclick=()=>{if(confirm('Are you sure? This will permanently delete all transactions, bills, debts, and settings on this device. Back up first!')){['moneyTrackerData','moneyTrackerBills','moneyTrackerDebts','moneyTrackerAccounts','moneyTrackerBudgets','moneyTrackerGoals','moneyTrackerPin'].forEach(k=>localStorage.removeItem(k));location.reload()}};
+function renderAll(){renderDashboard();renderTransactions();renderBills();renderDebts();renderAccounts();renderBudgets();renderBusiness()}
+$('homeMonth').onchange=renderDashboard;
+renderAll();runReport();if(pin)$('lockScreen').style.display='flex';
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(err=>console.error('Service Worker:',err)))}
+</script>
 </body>
 </html>
